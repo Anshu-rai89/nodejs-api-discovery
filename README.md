@@ -6,6 +6,7 @@ This Node.js npm package scans a directory for API endpoints implemented using E
 
 ```bash
 npm install nodejs-api-discovery
+```
 
 ## Usage
 
@@ -22,12 +23,15 @@ npm install nodejs-api-discovery
      "baseUrl": "http://localhost:3000"
    }
 
+   ```
+
 2. **Running the Tool**
 
    Execute the following command in your terminal.
 
-    ```bash
-   node index.mjs
+   ```bash
+   npm install nodejs-api-discovery
+   ```
 
 3. **Generated Postman Collection**
 
