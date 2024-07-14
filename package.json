@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-api-discovery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "anshu.rai.dev@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "esprima": "^4.0.1",
+    "esprima-walk": "^0.1.0"
+  }
+}

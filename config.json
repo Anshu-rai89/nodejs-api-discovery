@@ -1,0 +1,7 @@
+{
+  "directoryToScan": "./event-manegment/routes",
+  "framework": "express",
+  "objectInstance": "router",
+  "baseUrl":"http::localhost:3000",
+  "postmanCollectionFile": "./postman_collection.json"
+}
