@@ -52,8 +52,7 @@ npm install nodejs-api-discovery
    }
 
    runTool(true);
-
-```
+   ```
 
 2. **Generated Postman Collection**
 
