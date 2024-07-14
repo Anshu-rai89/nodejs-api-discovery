@@ -2,12 +2,18 @@
   "name": "nodejs-api-discovery",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.mjs",
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.mjs"
+    "start": "node index.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "api",
+    "postman",
+    "collection",
+    "generator"
+  ],
   "author": "anshu.rai.dev@gmail.com",
   "license": "ISC",
   "dependencies": {

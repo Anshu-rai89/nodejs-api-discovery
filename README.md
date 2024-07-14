@@ -25,15 +25,37 @@ npm install nodejs-api-discovery
 
    ```
 
-2. **Running the Tool**
-
-   Execute the following command in your terminal.
-
    ```bash
-   npm install nodejs-api-discovery
-   ```
+   import {
+      generatePostmanCollection,
+      discoverEndpoints,
+   } from "nodejs-api-discovery";
+   import fs from 'fs';
 
-3. **Generated Postman Collection**
+   // Load configuration
+   const configPath = './config.json';
+   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+
+   async function runTool(writeCollection = false) {
+   try {
+      const endpoints = await discoverEndpoints(
+         config.directoryToScan,
+         config.framework,
+         config.objectInstance
+      );
+
+      await generatePostmanCollection(endpoints, config.baseUrl, writeCollection);
+      console.log("Postman collection generated successfully!");
+   } catch (error) {
+      console.error("Error generating Postman collection:", error);
+   }
+   }
+
+   runTool(true);
+
+```
+
+2. **Generated Postman Collection**
 
     The generated Postman collection (postman_collection.json) contains API endpoints with methods, URLs prefixed by baseUrl, headers, query parameters, and request bodies (if available).
 
