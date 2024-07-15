@@ -26,32 +26,7 @@ npm install nodejs-api-discovery
    ```
 
    ```bash
-   import {
-      generatePostmanCollection,
-      discoverEndpoints,
-   } from "nodejs-api-discovery";
-   import fs from 'fs';
-
-   // Load configuration
-   const configPath = './config.json';
-   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-
-   async function runTool(writeCollection = false) {
-   try {
-      const endpoints = await discoverEndpoints(
-         config.directoryToScan,
-         config.framework,
-         config.objectInstance
-      );
-
-      await generatePostmanCollection(endpoints, config.baseUrl, writeCollection);
-      console.log("Postman collection generated successfully!");
-   } catch (error) {
-      console.error("Error generating Postman collection:", error);
-   }
-   }
-
-   runTool(true);
+   nodejs-api-discovery -c ./config.json
    ```
 
 2. **Generated Postman Collection**
