@@ -18,7 +18,7 @@
     "generator"
   ],
   "author": "anshu.rai.dev@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "commander": "^12.1.0",
     "esprima": "^4.0.1",
