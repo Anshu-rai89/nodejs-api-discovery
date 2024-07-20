@@ -8,6 +8,17 @@ This Node.js npm package scans a directory for API endpoints implemented using E
 npm install nodejs-api-discovery
 ```
 
+## Requirements
+
+ - Node.js version 18 or higher
+
+## Supported Frameworks
+
+ - Express
+ - Fastify 
+ - Sails
+ - Nest
+
 ## Usage
 
 1. **Configuration**
@@ -25,11 +36,14 @@ npm install nodejs-api-discovery
 
    ```
 
+2. **Run tool**
+  Use the following command to run the tool with your configuration file:
+
    ```bash
    nodejs-api-discovery -c ./config.json
    ```
 
-2. **Generated Postman Collection**
+3. **Generated Postman Collection**
 
     The generated Postman collection (postman_collection.json) contains API endpoints with methods, URLs prefixed by baseUrl, headers, query parameters, and request bodies (if available).
 
