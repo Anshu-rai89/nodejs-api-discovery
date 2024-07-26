@@ -25,14 +25,26 @@ npm install nodejs-api-discovery
 
    Modify the `config.json` file to specify the directory to scan, the server framework (`express` for now), the object instance where endpoints are defined (`app` for Express), and other parameters.
 
+   Mandatory fields are repoPath, framework & objectInstance only
+
    ```json
    {
-     "directoryToScan": "./",
-     "framework": "express",
-     "objectInstance": "app",
-     "postmanCollectionFile": "./postman_collection.json",
-     "baseUrl": "http://localhost:3000"
+     "repoPath": "local directory path or remote repo url",
+      "framework": "express",
+      "objectInstance": "router",
+      "baseUrl":"http::localhost:3000",
+      "collectionName":" [optional]",
+      "githubAPIKey":" [ Required only for private repos]",
+      "workspaceId":"[ Required only for collection sync]",
+      "postmanKey":" [ Required only for collection sync]",
+      "postmanCollectionFile": "./postman_collection.json"
    }
+
+- **githubAPIKey:** Required only for Private Repo.
+
+- **postmanKey:** Required if you want to auto sync collection to postman workspace.
+
+- **workspaceId:** Required if you want to auto sync collection to postman workspace.
 
    ```
 
