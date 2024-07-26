@@ -1,7 +1,11 @@
 {
-  "directoryToScan": "./event-manegment/routes",
+  "repoPath": "https://github.com/Anshu-rai89/OnlineAssesment.git",
   "framework": "express",
   "objectInstance": "router",
   "baseUrl":"http::localhost:3000",
+  "collectionName":"admin",
+  "githubAPIKey":"",
+  "workspaceId":"",
+  "postmanKey":"",
   "postmanCollectionFile": "./postman_collection.json"
 }

@@ -24,16 +24,19 @@ try {
 // Function to run API discovery and collection generation
 async function runTool(writeCollection = false) {
   try {
-    const endpoints = await discoverEndpoints(
-      config.directoryToScan,
-      config.framework,
-      config.objectInstance
-    );
+    const endpoints = await discoverEndpoints(config);
 
-    await generatePostmanCollection(endpoints, config.baseUrl, writeCollection);
+    await generatePostmanCollection(
+      endpoints,
+      config.baseUrl,
+      config.postmanKey,
+      config.workspaceId,
+      config.collectionName,
+      writeCollection
+    );
     console.log("Postman collection generated successfully!");
   } catch (error) {
-    console.error("Error generating Postman collection:", error);
+    console.error("Error generating Postman collection:", error.message);
   }
 }
 

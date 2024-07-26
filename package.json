@@ -20,9 +20,11 @@
   "author": "anshu.rai.dev@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.7.2",
     "commander": "^12.1.0",
     "esprima": "^4.0.1",
     "esprima-walk": "^0.1.0",
+    "simple-git": "^3.25.0",
     "typescript": "^5.5.3"
   }
 }
