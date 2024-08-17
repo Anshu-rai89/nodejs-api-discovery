@@ -176,7 +176,12 @@ export function traceFunctionDefinition(functionName, filePath) {
   let functionPath = filePath;
   try {
     content = fs.readFileSync(filePath, "utf8");
-    ast = esprima.parseScript(content, { tolerant: true });
+    ast = esprima.parseScript(content, {
+      tolerant: true,
+      comment: true,
+      range: true,
+      tokens: true,
+    });
   } catch (error) {
     console.error(`Error parsing file ${filePath}:`, error);
     return null;
@@ -264,13 +269,17 @@ export function traceFunctionDefinition(functionName, filePath) {
         (spec) => spec.imported.name === functionName
       );
       if (importedFunction) {
-        const importPath =
-          path.resolve(path.dirname(filePath), node.source.value) + ".js";
+        const importPath = path.resolve(
+          path.dirname(filePath),
+          node.source.value
+        );
 
-        functionPath = importPath;
+        const resolvedPath = resolveImportPath(importPath);
+
+        functionPath = resolvedPath;
         functionDefinition = traceFunctionDefinition(
           importedFunction.local.name,
-          importPath
+          resolvedPath
         )[0];
       }
     } else if (
@@ -299,11 +308,18 @@ export function traceFunctionDefinition(functionName, filePath) {
         return undefined;
       });
       if (decl) {
-        const importPath =
-          path.resolve(path.dirname(filePath), decl.init.arguments[0].value) +
-          ".js";
-        functionPath = importPath;
-        functionDefinition = traceFunctionDefinition(functionName, importPath)[0];
+        const importPath = path.resolve(
+          path.dirname(filePath),
+          decl.init.arguments[0].value
+        );
+
+        const resolvedPath = resolveImportPath(importPath);
+
+        functionPath = resolvedPath;
+        functionDefinition = traceFunctionDefinition(
+          functionName,
+          resolvedPath
+        )[0];
       }
     } else if (
       node.type === "ExpressionStatement" &&
@@ -317,8 +333,13 @@ export function traceFunctionDefinition(functionName, filePath) {
         node.expression.right.arguments[0].value
       );
 
-      functionPath = importPath;
-      functionDefinition = traceFunctionDefinition(functionName, importPath+'.js')[0];
+       const resolvedPath = resolveImportPath(importPath);
+
+      functionPath = resolvedPath;
+      functionDefinition = traceFunctionDefinition(
+        functionName,
+        resolvedPath
+      )[0];
     }
   }
 
@@ -359,27 +380,41 @@ export function getFunctionDescriptionForJs(functionNode, filePath) {
 
   const comments = ast.comments;
   const functionRange = functionNode.range;
+  let closestComment = null;
 
-  // Find the JSDoc comment associated with the function node
-  const jsdocComment = comments
-    .filter(
-      (comment) =>
-        comment.type === "Block" && comment.value.trim().startsWith("*")
-    )
-    .find((comment) => {
+  for (const comment of comments) {
+    if (comment.type === "Block" && comment.value.trim().startsWith("*")) {
       const commentEnd = comment.range[1];
-      return commentEnd <= functionRange[0];
-    });
+      if (
+        !closestComment ||
+        (commentEnd <= functionRange[0] &&
+          commentEnd >= closestComment.range[1])
+      ) {
+        closestComment = comment;
+      }
+    }
+  }
 
-  if (jsdocComment) {
-    const parsedComment = doctrine.parse(jsdocComment.value, { unwrap: true });
+  if (closestComment) {
+    const parsedComment = doctrine.parse(closestComment.value, {
+      unwrap: true,
+      sloppy: true,
+    });
     let description = parsedComment.description;
-    parsedComment.tags && parsedComment.tags.map(tag => {
-      if(tag.description) description +=  " " + tag.description;
-    });
-
+    parsedComment.tags &&
+      parsedComment.tags.map((tag) => {
+        if (tag.description) description += " " + tag.description;
+      });
     return description;
   } else {
     return null;
   }
+}
+
+
+function resolveImportPath(importPath) {
+  const filePath = importPath.endsWith('.js') ? importPath : importPath + '.js';
+  const isExist = fs.existsSync(filePath); 
+  
+  return isExist ? filePath : path.join(importPath, "index.js");
 }
