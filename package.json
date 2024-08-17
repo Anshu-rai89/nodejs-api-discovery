@@ -1,6 +1,6 @@
 {
   "name": "nodejs-api-discovery",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "Nodejs API discovery CLI and postman collection generator",
   "type": "module",
   "bin": {
@@ -22,9 +22,11 @@
   "dependencies": {
     "axios": "^1.7.2",
     "commander": "^12.1.0",
+    "doctrine": "^3.0.0",
     "esprima": "^4.0.1",
     "esprima-walk": "^0.1.0",
     "simple-git": "^3.25.0",
+    "ts-morph": "^23.0.0",
     "typescript": "^5.5.3"
   }
 }
